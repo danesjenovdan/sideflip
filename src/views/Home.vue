@@ -2,7 +2,7 @@
   <div>
     <div class="split-container">
       <div class="split left">
-        <presence />
+        <presence v-if="!isRoomHashFresh" />
       </div>
       <div class="split">
         <matches />
