@@ -42,22 +42,26 @@ import Avatar from './Avatar.vue';
 })
 export default class Presence extends Vue {
   join() {
-    const now = new Date();
-    this.$gun
-      .get(this.roomHash)
-      .get('roomData')
-      .get('present')
-      .get(this.userName)
-      .put(now.getTime());
+    if (this.userName !== '') {
+      const now = new Date();
+      this.$gun
+        .get(this.roomHash)
+        .get('roomData')
+        .get('present')
+        .get(this.userName)
+        .put(now.getTime());
 
-    this.$store.commit('setSignedIn', true);
+      this.$store.commit('setSignedIn', true);
+    } else {
+      alert('Please choose a name for yourself.');
+    }
   }
 
   mounted() {
-    if (this.admin) {
-      this.userName = 'admin';
-      this.join();
-    }
+    // if (this.admin) {
+    //   this.userName = 'admin';
+    //   this.join();
+    // }
 
     window.setInterval(() => {
       const now = new Date();

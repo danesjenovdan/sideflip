@@ -4,7 +4,7 @@
       <h1>Use this link to invite participants</h1>
       <input type="url" :value="`https://djnd.si/sideflip/#${roomHash}`">
     </div>
-    <div class="" v-if="admin">
+    <div class="" v-if="false"> <!-- admin sign in disabled -->
       <h1>Use this link to enter as draw master</h1>
       <input type="url" :value="`https://djnd.si/sideflip/admin/#${roomHash}`">
     </div>

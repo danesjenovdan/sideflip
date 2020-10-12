@@ -15,7 +15,6 @@
         <matches />
       </div>
     </div>
-    <share-bar />
   </div>
 </template>
 
@@ -24,13 +23,11 @@ import { mapState } from 'vuex';
 import { Component, Vue } from 'vue-property-decorator';
 import Matches from '@/components/Matches.vue';
 import RoundSettings from '@/components/RoundSettings.vue';
-import ShareBar from '@/components/ShareBar.vue';
 
 @Component({
   components: {
     RoundSettings,
     Matches,
-    ShareBar,
   },
   computed: {
     ...mapState(['roomHash', 'isRoomHashFresh']),

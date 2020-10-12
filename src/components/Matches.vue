@@ -13,8 +13,11 @@
           :class="['team-heading', flipState, 'hidden-xs']"
         >
           <span v-if="flipState !== 'flipped'">Team {{ teamIndex + 1 }}</span>
-          <span v-else-if="teamsPerMatch === 2">
+          <span v-else-if="teamsPerMatch === 2 && flipType === 'determine'">
             {{ teamIndex === 0 ? 'PROPOSITION' : 'OPPOSITION' }}
+          </span>
+          <span v-else-if="teamsPerMatch === 2">
+            {{ teamIndex === 0 ? 'GETS TO CHOOSE' : 'LOST THE DRAW' }}
           </span>
           <span v-else>{{ ['1G', '1O', '2G', '2O'][teamIndex] }}</span>
         </div>

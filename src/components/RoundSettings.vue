@@ -12,7 +12,7 @@
     </div>
     <div class="setting-container">
       <label for="sides">Sides</label>
-      <div class="radio-container">
+      <div class="radio-container" v-if="teamsPerMatch === 2">
         <span class="label">Give choice</span>
         <input
           type="radio"
@@ -112,7 +112,10 @@ import Matches from '@/components/Matches.vue';
     },
     flipType: {
       get() {
-        return this.$store.state.flipType;
+        if (this.$store.state.teamsPerMatch === 2) {
+          return this.$store.state.flipType;
+        }
+        return 'determine';
       },
       set(newFlipType) {
         this.$store.commit('setFlipType', newFlipType);
@@ -136,6 +139,10 @@ import Matches from '@/components/Matches.vue';
     },
     enableChat: {
       get() {
+        if ((this.$store.state.teamsPerMatch === 2)
+          && (this.$store.state.flipType === 'give choice')) {
+          return true;
+        }
         return this.$store.state.enableChat;
       },
       set(newEnableChat) {
@@ -234,7 +241,7 @@ export default class RoundSettings extends Vue {
   }
 
   .radio-container {
-    padding-right: 2px;
+    padding-left: 2px;
     font-family: Poppins;
     font-size: 24px;
     font-weight: 400;
@@ -249,9 +256,9 @@ export default class RoundSettings extends Vue {
 
     span {
       display: block;
-      float: left;
-      padding-right: 10px;
-      width: 180px;
+      float: right;
+      padding-left: 10px;
+      width: auto;
     }
 
     &:nth-child(3) {
