@@ -6,6 +6,21 @@ import Gun from 'gun';
 import 'gun/lib/then';
 import VueGun from 'vue-gun';
 
+// create empty matches utility
+function createEmptyMatches(numberOfMatches: number, teamsPerMatch: number) {
+  const matches = [];
+  return Array.from(
+    { length: numberOfMatches - matches.length },
+    (v, i) => {
+      const match = {};
+      for (let ii = 0; ii < teamsPerMatch; ii += 1) {
+        match[ii.toString()] = '';
+      }
+      return match;
+    },
+  );
+}
+
 // First, check if there's a hash in the URL bar
 let roomHash = uuidv4();
 let isRoomHashFresh = true;
@@ -78,6 +93,27 @@ export default new Vuex.Store({
     },
     setMatches(state, newMatches) {
       Vue.set(state, 'matches', [...newMatches]);
+
+      // newMatches.forEach((match, i) => {
+      //   console.log(match);
+      //   Object.keys(match).forEach((team) => {
+      //     gun.get(state.roomHash)
+      //       .get('roomData')
+      //       .get('matches')
+      //       .get(`match_${i}`)
+      //       .get(`team_${team}`)
+      //       .get('name')
+      //       .put(match[team]);
+
+      //     gun.get(state.roomHash)
+      //       .get('roomData')
+      //       .get('matches')
+      //       .get(`match_${i}`)
+      //       .get(`team_${team}`)
+      //       .get('position')
+      //       .put('unknown');
+      //   });
+      // });
     },
     setPresent(state, newPresent) {
       Vue.set(state, 'present', [...newPresent]);
@@ -100,44 +136,49 @@ export default new Vuex.Store({
           .then();
         state.publicUUID = await gun.get(roomHash).get('roomData').get('publicUUID').once()
           .then();
-        state.matches = [];
-        for (let i = 0; i < state.numberOfMatches; i += 1) {
-          // TODO possible bug here
-          const tempMatch = {};
-          gun.get(roomHash)
-            .get('roomData')
-            .get('matches')
-            .get(`match_${i}`)
-            .map()
-            .once((value, teamId) => {
-              console.log(value, teamId);
-            });
-          for (let ii = 0; ii < state.teamsPerMatch; ii += 1) {
+        state.matches = createEmptyMatches(state.numberOfMatches, state.teamsPerMatch);
+        gun.get(roomHash)
+          .get('roomData')
+          .get('matches')
+          .map()
+          .once((match, matchId) => {
+            const matchNumericalId = parseInt(matchId.split('_')[1], 10);
+            // update matches
             gun.get(roomHash)
               .get('roomData')
               .get('matches')
-              .get(`match_${i}`)
-              .get(`team_${ii}`)
-              .get('name')
-              .once((thing) => {
-                tempMatch[ii.toString()] = thing;
+              .get(matchId)
+              .map()
+              .once(async (team, teamId) => {
+                const teamNumericalId = teamId.split('_')[1];
+                gun.get(roomHash)
+                  .get('roomData')
+                  .get('matches')
+                  .get(matchId)
+                  .get(teamId)
+                  .get('name')
+                  .on((name) => {
+                    const tempMatch = { ...state.matches[matchNumericalId] };
+                    tempMatch[teamNumericalId] = name;
+                    Vue.set(
+                      state.matches,
+                      matchNumericalId,
+                      tempMatch,
+                    );
+                  });
               });
-          }
-          state.matches.push(tempMatch);
-        }
+          });
         state.present = [];
         gun.get(roomHash)
           .get('roomData')
           .get('present')
           .map()
           .on((val, key) => {
-            console.log(val, key);
             if (key !== 'present') {
               const seconds = 15;
               const dateNow = new Date();
               const date15SecondsAgo = new Date(dateNow.getTime() - seconds * 1000);
               const timestamp = new Date(val);
-              console.log(timestamp, date15SecondsAgo);
               if (timestamp > date15SecondsAgo) {
                 if (!state.present.includes(key)) {
                   state.present.push(key);

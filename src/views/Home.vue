@@ -59,7 +59,6 @@ export default class Home extends Vue {
   }
 
   flipTheCoin() {
-    console.log('flipping', this.teamsPerMatch);
     this.$store.commit('setFlipState', 'flipping');
     this.$gun
       .get(this.roomHash)
@@ -76,10 +75,26 @@ export default class Home extends Vue {
         .put('flipped');
 
       if (this.teamsPerMatch === 2) {
-        const newMatches = this.matches.map((match) => {
+        const newMatches = this.matches.map((match, i) => {
           const cointoss = Math.random().toFixed(0);
           const gov = match[cointoss];
           const opp = match[Math.abs(cointoss - 1)];
+
+          this.$gun.get(this.roomHash)
+            .get('roomData')
+            .get('matches')
+            .get(`match_${i}`)
+            .get('team_0')
+            .get('name')
+            .put(gov);
+
+          this.$gun.get(this.roomHash)
+            .get('roomData')
+            .get('matches')
+            .get(`match_${i}`)
+            .get('team_1')
+            .get('name')
+            .put(opp);
 
           return {
             0: gov,
@@ -89,13 +104,44 @@ export default class Home extends Vue {
 
         this.$store.commit('setMatches', newMatches);
       } else if (this.teamsPerMatch === 4) {
-        const newMatches = this.matches.map((match) => {
+        const newMatches = this.matches.map((match, i) => {
           const order = shuffleArray([0, 1, 2, 3]);
           const g1 = match[order[0]];
           const g2 = match[order[1]];
           const o1 = match[order[2]];
           const o2 = match[order[3]];
-          console.log(g1, g2, o1, o2);
+
+          this.$gun.get(this.roomHash)
+            .get('roomData')
+            .get('matches')
+            .get(`match_${i}`)
+            .get('team_0')
+            .get('name')
+            .put(g1);
+
+          this.$gun.get(this.roomHash)
+            .get('roomData')
+            .get('matches')
+            .get(`match_${i}`)
+            .get('team_1')
+            .get('name')
+            .put(g2);
+
+          this.$gun.get(this.roomHash)
+            .get('roomData')
+            .get('matches')
+            .get(`match_${i}`)
+            .get('team_2')
+            .get('name')
+            .put(o1);
+
+          this.$gun.get(this.roomHash)
+            .get('roomData')
+            .get('matches')
+            .get(`match_${i}`)
+            .get('team_3')
+            .get('name')
+            .put(o2);
 
           return {
             0: g1,

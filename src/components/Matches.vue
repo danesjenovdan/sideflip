@@ -86,7 +86,6 @@ export default class Matches extends Vue {
       .get(`team_${teamIndex}`)
       .get('name')
       .put(teamName);
-    console.log('putted', teamName);
 
     const newMatches = [...this.matches];
     newMatches[matchIndex][teamIndex.toString()] = teamName;
@@ -95,7 +94,6 @@ export default class Matches extends Vue {
 
   @Watch('numberOfMatches')
   onMatchesChanged(newNumberOfMatches: number, oldNumberOfMatches: number) {
-    console.log(this.matches.length, newNumberOfMatches, oldNumberOfMatches);
     if (this.matches.length !== newNumberOfMatches) {
       this.padMatches();
     }
@@ -103,7 +101,6 @@ export default class Matches extends Vue {
 
   @Watch('teamsPerMatch')
   async onTeamsPerMatchChanged(newTeamsPerMatch: number, oldTeamsPerMatch: number) {
-    console.log(this.matches.length, newTeamsPerMatch, oldTeamsPerMatch);
     await this.$store.commit('setMatches', []);
     this.padMatches();
   }
@@ -122,7 +119,6 @@ export default class Matches extends Vue {
       );
       this.$store.commit('setMatches', newMatches.concat([...this.matches]));
     } else if (this.matches.length > this.numberOfMatches) {
-      console.log(this.matches.length, this.matches);
       this.$store.commit('setMatches', this.matches.slice(0, this.numberOfMatches));
     }
   }
