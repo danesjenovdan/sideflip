@@ -40,9 +40,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     roomName: '',
-    flipType: null,
+    flipType: '',
     flipState: 'waiting',
-    teamsPerMatch: null,
+    flipTime: null,
+    teamsPerMatch: 0,
     numberOfMatches: 0,
     enableChat: false,
     publicUUID: uuidv4(),
@@ -117,6 +118,9 @@ export default new Vuex.Store({
     },
     setPresent(state, newPresent) {
       Vue.set(state, 'present', [...newPresent]);
+    },
+    setFlipTime(state) {
+      this.state.flipTime = new Date();
     },
   },
   actions: {

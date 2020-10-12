@@ -15,7 +15,12 @@
         </div>
       </div>
     </div>
-    <input id="message" type="text" @keyup.enter="handleNewMessage" v-model="currentMessage" />
+    <input
+      id="message"
+      type="text"
+      @keyup.enter="handleNewMessage" v-model="currentMessage"
+      placeholder="Write your message here!"
+    />
   </div>
 </template>
 

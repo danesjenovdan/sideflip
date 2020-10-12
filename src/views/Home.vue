@@ -3,13 +3,13 @@
     <div class="split-container">
       <div class="split left">
         <presence />
-        <div v-if="admin && flipState === 'waiting'">
-          <button @click="flipTheCoin">Flip the coin</button>
-        </div>
       </div>
       <div class="split">
         <matches />
       </div>
+    </div>
+    <div id="flip-the-coin-container" v-if="admin && flipState === 'waiting'">
+      <button @click="flipTheCoin">Flip the coin</button>
     </div>
     <chat v-if="enableChat" />
     <share-bar />
@@ -68,6 +68,7 @@ export default class Home extends Vue {
 
     window.setTimeout(() => {
       this.$store.commit('setFlipState', 'flipped');
+      this.$store.commit('setFlipTime');
       this.$gun
         .get(this.roomHash)
         .get('roomData')
@@ -159,6 +160,17 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss">
+#flip-the-coin-container {
+  background-image: linear-gradient(-62deg, #f2f6fa 0%, #dbe7f1 100%);
+  margin: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  button {
+    margin: auto;
+  }
+}
+
 .coin {
   margin: auto;
   display: block;

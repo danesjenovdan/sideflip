@@ -87,12 +87,13 @@
     <button
       type="submit"
       @click.prevent="createRound"
+      :disabled="!enableCreateRoom"
     >{{ isRoomHashFresh ? 'Create' : 'Update' }} round</button>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Watch, Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 import Matches from '@/components/Matches.vue';
 
@@ -112,10 +113,7 @@ import Matches from '@/components/Matches.vue';
     },
     flipType: {
       get() {
-        if (this.$store.state.teamsPerMatch === 2) {
-          return this.$store.state.flipType;
-        }
-        return 'determine';
+        return this.$store.state.flipType;
       },
       set(newFlipType) {
         this.$store.commit('setFlipType', newFlipType);
@@ -139,10 +137,6 @@ import Matches from '@/components/Matches.vue';
     },
     enableChat: {
       get() {
-        if ((this.$store.state.teamsPerMatch === 2)
-          && (this.$store.state.flipType === 'give choice')) {
-          return true;
-        }
         return this.$store.state.enableChat;
       },
       set(newEnableChat) {
@@ -165,9 +159,37 @@ import Matches from '@/components/Matches.vue';
         this.$store.commit('setPublicUUID', newPublicUUID);
       },
     },
+    enableCreateRoom: {
+      get() {
+        return (this.$store.state.roomName !== '')
+          && (this.$store.state.flipType !== '')
+          && (this.$store.state.teamsPerMatch !== 0)
+          && (this.$store.state.numberOfMatches !== 0);
+      },
+    },
   },
 })
 export default class RoundSettings extends Vue {
+  @Watch('teamsPerMatch')
+  onChangedTeamsPerMatch(newTeamsPerMatch) {
+    if (newTeamsPerMatch === 2) {
+      this.$store.commit('setFlipType', 'determine');
+    }
+
+    if ((newTeamsPerMatch === 2)
+      && (this.flipType === 'give choice')) {
+      this.$store.commit('setEnableChat', true);
+    }
+  }
+
+  @Watch('flipType')
+  onChangedFlipType(newFlipType) {
+    if ((this.teamsPerMatch === 2)
+      && (newFlipType === 'give choice')) {
+      this.$store.commit('setEnableChat', true);
+    }
+  }
+
   createRound() {
     this.$gun.get(this.roomHash).get('roomData').put({
       roomName: this.roomName,
@@ -653,6 +675,10 @@ button {
 
   &:hover {
     opacity: 1;
+  }
+
+  &:disabled {
+    opacity: 0.1;
   }
 }
 </style>

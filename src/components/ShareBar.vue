@@ -1,12 +1,11 @@
 <template>
   <div class="share-bar">
-    <div class="">
+    <div class="share-bar-split" v-if="flipState === 'flipped'"> <!-- admin sign in disabled -->
+      <h1>This draw happened on {{ flipTime }}</h1>
+    </div>
+    <div class="share-bar-split">
       <h1>Use this link to invite participants</h1>
       <input type="url" :value="`https://djnd.si/sideflip/#${roomHash}`">
-    </div>
-    <div class="" v-if="false"> <!-- admin sign in disabled -->
-      <h1>Use this link to enter as draw master</h1>
-      <input type="url" :value="`https://djnd.si/sideflip/admin/#${roomHash}`">
     </div>
   </div>
 </template>
@@ -17,7 +16,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   computed: {
-    ...mapState(['roomHash', 'admin']),
+    ...mapState(['roomHash', 'admin', 'flipState', 'flipTime']),
   },
 })
 export default class ShareBar extends Vue {}
@@ -39,9 +38,22 @@ export default class ShareBar extends Vue {}
 
   z-index: 2;
 
+  .share-bar-split {
+    width: 100%;
+
+    &:first-child {
+      h1 {
+        line-height: 170px;
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+
   h1 {
     margin-top: 0;
-    width: 100%;
+    // width: 100%;
   }
 
   input {
@@ -51,6 +63,14 @@ export default class ShareBar extends Vue {}
   @media (max-width: 767px) {
     flex-wrap: wrap;
     height: 320px;
+
+    .share-bar-split {
+      &:first-child {
+        h1 {
+          line-height: 40px;
+        }
+      }
+    }
 
     div {
       width: 100%;
