@@ -1,6 +1,6 @@
 <template>
   <div class="share-bar">
-    <div class="share-bar-split" v-if="flipState === 'flipped'"> <!-- admin sign in disabled -->
+    <div :class="['share-bar-split', { hidden: (flipState !== 'flipped') }]">
       <h1>This draw happened on {{ flipTime }}</h1>
     </div>
     <div class="share-bar-split">
@@ -48,6 +48,10 @@ export default class ShareBar extends Vue {}
           display: none;
         }
       }
+    }
+
+    &.hidden {
+      display: none !important;
     }
   }
 
