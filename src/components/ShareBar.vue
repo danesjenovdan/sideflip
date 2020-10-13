@@ -1,7 +1,7 @@
 <template>
   <div class="share-bar">
     <div :class="['share-bar-split', { hidden: (flipState !== 'flipped') }]">
-      <h1>This draw happened on {{ flipTime }}</h1>
+      <h1>This draw happened on {{ prettyFlipTime }}</h1>
     </div>
     <div class="share-bar-split">
       <h1>Use this link to invite participants</h1>
@@ -17,6 +17,11 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   computed: {
     ...mapState(['roomHash', 'admin', 'flipState', 'flipTime']),
+    prettyFlipTime: {
+      get() {
+        return `${this.flipTime.toLocaleDateString()} at ${this.flipTime.toLocaleTimeString()}`;
+      },
+    },
   },
 })
 export default class ShareBar extends Vue {}
@@ -26,7 +31,7 @@ export default class ShareBar extends Vue {}
 .share-bar {
   position: relative;
   width: calc(100% - 40px);
-  height: 170px;
+  min-height: 170px;
   overflow: hidden;
   background: #ffffff;
 
@@ -40,10 +45,14 @@ export default class ShareBar extends Vue {}
 
   .share-bar-split {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
 
     &:first-child {
       h1 {
-        line-height: 170px;
+        // line-height: 170px;
+        // font-size: 24px;
         &::before {
           display: none;
         }
@@ -64,7 +73,7 @@ export default class ShareBar extends Vue {}
     width: 90%;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     flex-wrap: wrap;
     height: 320px;
 
