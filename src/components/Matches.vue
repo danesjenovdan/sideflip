@@ -58,7 +58,7 @@ import { mapState } from 'vuex';
 @Component(
   {
     computed: {
-      ...mapState(['numberOfMatches', 'teamsPerMatch', 'matches', 'roomHash', 'isRoomHashFresh', 'flipState']),
+      ...mapState(['numberOfMatches', 'teamsPerMatch', 'matches', 'roomHash', 'isRoomHashFresh', 'flipState', 'flipType']),
     },
     // watch: {
     //   matches(newMatches) {

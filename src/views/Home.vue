@@ -46,7 +46,7 @@ function shuffleArray(inputArray: any[]) {
     Chat,
   },
   computed: {
-    ...mapState(['roomHash', 'isRoomHashFresh', 'admin', 'matches', 'teamsPerMatch', 'flipState', 'enableChat']),
+    ...mapState(['roomHash', 'isRoomHashFresh', 'admin', 'matches', 'teamsPerMatch', 'flipState', 'enableChat', 'flipTime']),
   },
 })
 export default class Home extends Vue {
@@ -74,6 +74,12 @@ export default class Home extends Vue {
         .get('roomData')
         .get('flipState')
         .put('flipped');
+
+      this.$gun
+        .get(this.roomHash)
+        .get('roomData')
+        .get('flipTime')
+        .put(this.flipTime.toString());
 
       if (this.teamsPerMatch === 2) {
         const newMatches = this.matches.map((match, i) => {

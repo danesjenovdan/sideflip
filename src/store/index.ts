@@ -201,6 +201,14 @@ export default new Vuex.Store({
           .on((flipState) => {
             state.flipState = flipState;
           });
+
+        // start following flipTime
+        gun.get(roomHash)
+          .get('roomData')
+          .get('flipTime')
+          .on((flipTime) => {
+            state.flipTime = new Date(flipTime);
+          });
       }
     },
   },
