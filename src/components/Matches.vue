@@ -166,8 +166,8 @@ export default class Matches extends Vue {
   color: #252525;
   font-family: "IBM Plex Mono";
   font-style: italic;
-  font-size: 24px;
-  line-height: 60px;
+  font-size: 18px;
+  line-height: 40px;
 
   // input,
   .team-heading {
@@ -178,9 +178,11 @@ export default class Matches extends Vue {
     display: block;
     float: left;
     overflow: hidden;
+    line-height: 48px;
 
     input {
       width: calc(100% - 28px);
+      line-height: 40px;
     }
   }
 

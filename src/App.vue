@@ -37,11 +37,12 @@ body {
 }
 
 .side-flip-logo {
-  width: 300px;
-  height: 100px;
+  width: 240px;
+  height: 80px;
   background-image: url('./assets/logo.png');
   background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
 
   display: block;
 
@@ -49,17 +50,17 @@ body {
 
   top: 0;
   left: 50%;
-  margin-left: -160px;
+  margin-left: -120px;
 
-  margin-top: 28px;
+  margin-top: 22px;
 }
 
 h1 {
   color: #252525;
   font-family: "Poppins";
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 900;
-  line-height: 60px;
+  line-height: 48px;
   position: relative;
   display: inline-block;
 
@@ -70,7 +71,7 @@ h1 {
     bottom: 5px;
     z-index: -1;
     width: 100%;
-    height: 22px;
+    height: 16px;
     background-color: #ffcc00;
   }
 }
@@ -80,15 +81,15 @@ input {
   background-color: #ffffff;
   line-height: 60px;
   font-family: Poppins;
-  font-size: 24px;
-  line-height: 60px;
+  font-size: 20px;
+  line-height: 48px;
   font-weight: 400;
 }
 label {
   color: #252525;
   font-family: "IBM Plex Mono";
   font-style: italic;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 60px;
 }
 input[type=text] {
@@ -187,7 +188,7 @@ footer {
 
 @media (max-width: 1119px) {
   h1 {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 

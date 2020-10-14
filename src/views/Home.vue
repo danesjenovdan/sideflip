@@ -11,8 +11,8 @@
     <div id="flip-the-coin-container" v-if="admin && flipState === 'waiting'">
       <button @click="flipTheCoin">Flip the coin</button>
     </div>
-    <chat v-if="enableChat" />
     <share-bar />
+    <chat v-if="enableChat" />
     <div class="modal" v-if="flipState === 'flipping'">
       <img class="coin" src="@/assets/coin.gif" />
     </div>

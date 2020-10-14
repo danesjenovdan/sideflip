@@ -265,7 +265,7 @@ export default class RoundSettings extends Vue {
   .radio-container {
     padding-left: 2px;
     font-family: Poppins;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 60px;
 
@@ -567,7 +567,7 @@ export default class RoundSettings extends Vue {
 
         span {
           line-height: 22px;
-          font-size: 16px;
+          font-size: 14px;
           color: var(--text, #646B8C);
           font-weight: 500;
           display: inline-block;
@@ -628,7 +628,7 @@ export default class RoundSettings extends Vue {
       margin-left: 10px;
       padding-top: 5px;
 
-      font-size: 24px;
+      font-size: 22px;
 
       &:last-child {
         margin-left: 0;
@@ -653,8 +653,8 @@ export default class RoundSettings extends Vue {
 button {
   box-shadow: none;
   border: none;
-  width: 442px;
-  height: 91px;
+  width: 380px;
+  height: 80px;
   border-radius: 45px;
   background-color: #3098f3;
   opacity: 0.7;
@@ -662,14 +662,14 @@ button {
   color: #ffffff;
   font-family: "Poppins";
   font-style: italic;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 2.16px;
 
   display: block;
   margin: auto;
-  margin-top: 60px;
+  margin-top: 48px;
 
   cursor: pointer;
 
