@@ -161,10 +161,25 @@ import Matches from '@/components/Matches.vue';
     },
     enableCreateRoom: {
       get() {
+        const teamNamesPresent = this.$store.state.matches.reduce(
+          (acc, match) => Math.min(
+            acc,
+            Object.keys(match).reduce(
+              (gotNames, team) => Math.min(
+                (match[team] !== ''),
+                gotNames,
+              ),
+              true,
+            ),
+          ),
+          true,
+        );
+
         return (this.$store.state.roomName !== '')
           && (this.$store.state.flipType !== '')
           && (this.$store.state.teamsPerMatch !== 0)
-          && (this.$store.state.numberOfMatches !== 0);
+          && (this.$store.state.numberOfMatches !== 0)
+          && teamNamesPresent;
       },
     },
   },
