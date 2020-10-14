@@ -19,7 +19,10 @@ import { Component, Vue } from 'vue-property-decorator';
     ...mapState(['roomHash', 'admin', 'flipState', 'flipTime']),
     prettyFlipTime: {
       get() {
-        return `${this.flipTime.toLocaleDateString()} at ${this.flipTime.toLocaleTimeString()}`;
+        if (this.flipTime) {
+          return `${this.flipTime.toLocaleDateString()} at ${this.flipTime.toLocaleTimeString()}`;
+        }
+        return '';
       },
     },
   },
