@@ -10,27 +10,6 @@
         v-model="roomName"
         :disabled="!isRoomHashFresh">
     </div>
-    <div class="setting-container">
-      <label for="sides">Sides</label>
-      <div class="radio-container" v-if="teamsPerMatch === 2">
-        <span class="label">Give choice</span>
-        <input
-          type="radio"
-          name="sides"
-          value="give choice"
-          v-model="flipType"
-          :disabled="!isRoomHashFresh">
-      </div>
-      <div class="radio-container">
-        <span class="label">Delegate sides</span>
-        <input
-          type="radio"
-          name="sides"
-          value="determine"
-          v-model="flipType"
-          :disabled="!isRoomHashFresh">
-      </div>
-    </div>
     <div class="setting-container teams">
       <label for="number-of-teams">Teams per match</label>
       <div class="radio-container">
@@ -49,6 +28,27 @@
           name="number-of-teams"
           :value="4"
           v-model="teamsPerMatch"
+          :disabled="!isRoomHashFresh">
+      </div>
+    </div>
+    <div class="setting-container">
+      <label for="sides">Sides</label>
+      <div class="radio-container" v-if="teamsPerMatch === 2">
+        <span class="label">Give choice</span>
+        <input
+          type="radio"
+          name="sides"
+          value="give choice"
+          v-model="flipType"
+          :disabled="!isRoomHashFresh">
+      </div>
+      <div class="radio-container">
+        <span class="label">Delegate sides</span>
+        <input
+          type="radio"
+          name="sides"
+          value="determine"
+          v-model="flipType"
           :disabled="!isRoomHashFresh">
       </div>
     </div>
