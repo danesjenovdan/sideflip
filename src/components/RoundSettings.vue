@@ -668,7 +668,9 @@ export default class RoundSettings extends Vue {
 button {
   box-shadow: none;
   border: none;
-  width: 380px;
+  max-width: 380px;
+  padding-left: 30px;
+  padding-right: 30px;
   height: 80px;
   border-radius: 45px;
   background-color: #3098f3;

@@ -165,7 +165,7 @@ footer {
   flex-wrap: nowrap;
 
   .split {
-    min-width: 400px;
+    min-width: 320px;
     width: 100%;
     min-height: calc(100vh - 600px);
     flex: 1;
@@ -173,7 +173,8 @@ footer {
 
     &.left {
       background-color: #f5f2e7;
-      background-image: linear-gradient(to right, #f5f2e8 0%, #faf9f6 100%);
+      // background-image: linear-gradient(to right, #f5f2e8 0%, #faf9f6 100%);
+      background-image: linear-gradient(to right, #f5f0e2 0%, #fbfbfa 100%);
     }
   }
 

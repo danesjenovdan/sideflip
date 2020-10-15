@@ -39,12 +39,14 @@
           </span>
           <span v-else class="visible-xs">{{ ['1G', '1O', '2G', '2O'][teamIndex] }}</span>
           <input
+            v-if="$router.currentRoute.name === 'Admin'"
             type="text"
             :id="`m_${matchIndex}t_${teamIndex}`"
             :value="matches[matchIndex][teamIndex.toString()]"
             @input="updateTeamName"
             :disabled="!isRoomHashFresh && $route.name !== 'Admin'"
           >
+          <p class="team-name" v-else>{{ matches[matchIndex][teamIndex.toString()] }}</p>
         </div>
       </div>
     </div>
@@ -125,6 +127,10 @@ export default class Matches extends Vue {
       this.$store.commit('setMatches', this.matches.slice(0, this.numberOfMatches));
     }
   }
+
+  mounted() {
+    console.log(this.$router.currentRoute);
+  }
 }
 </script>
 
@@ -204,19 +210,50 @@ export default class Matches extends Vue {
     color: #252525;
   }
 
+  .team-name {
+    border: 4px solid #252525;;
+    background-color: #ffffff;
+    line-height: 20px;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px;
+    max-height: 60px;
+    overflow-y: auto;
+  }
+
   .flipped {
     background-color: #a3d0f7;
+    font-weight: 900;
+
+    @media (min-width: 1132px) and (max-width: 1300px) {
+      span {
+        font-size: 13.5px;
+      }
+    }
 
     &:nth-child(2n+1) {
       background-color: #ffeb9b;
     }
 
     &.light {
-      background-color: #e9f0f6;
+      // position: relative;
+      background-color: transparent;
+      // background-color: #e9f0f6;
 
-      &:nth-child(2n+1) {
-        background-color: #faf9f6;
-      }
+      // &:nth-child(2n+1) {
+      //   background-color: #faf9f6;
+      // }
+
+      // &::before {
+      //   content: '';
+      //   position: absolute;
+      //   top: 0;
+      //   right: 0;
+      //   bottom: 0;
+      //   left: 0;
+      //   background-color: red;
+      // }
     }
   }
 }

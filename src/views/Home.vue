@@ -167,7 +167,8 @@ export default class Home extends Vue {
 
 <style lang="scss">
 #flip-the-coin-container {
-  background-image: linear-gradient(-62deg, #f2f6fa 0%, #dbe7f1 100%);
+  // background-image: linear-gradient(-62deg, #f2f6fa 0%, #dbe7f1 100%);
+  background-image: linear-gradient(-62deg, #cee7fd 0%, #f7fafd 100%);
   margin: 0;
   padding-top: 30px;
   padding-bottom: 30px;

@@ -13,7 +13,8 @@
       <div class="modal-inner">
         <h1>Please enter your nickname</h1>
         <input type="text" v-model="userName" @keyup.enter="join">
-        <button @click="join">Watch the draw</button>
+        <button v-if="admin" @click="join">Enter the draw</button>
+        <button v-else @click="join">Watch the draw</button>
       </div>
     </div>
   </div>

@@ -42,7 +42,8 @@ export default class ShareBar extends Vue {}
 
   padding: 20px;
 
-  background-image: linear-gradient(-62deg, #f2f6fa 0%, #dbe7f1 100%);
+  // background-image: linear-gradient(-62deg, #f2f6fa 0%, #dbe7f1 100%);
+  background-image: linear-gradient(-62deg, #cee7fd 0%, #f7fafd 100%);
 
   z-index: 2;
 

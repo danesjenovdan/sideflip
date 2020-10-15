@@ -1,6 +1,9 @@
 <template>
   <div class="chat-container">
     <h1>Chat</h1>
+    <p v-if="flipType === 'give choice'">
+      The winner(s) of the draw should use this chat to specify their preferred side in the debate.
+    </p>
     <div class="messages-container" ref="messagesContainer">
       <div
         v-for="message in messages"
@@ -30,7 +33,7 @@ import { mapState } from 'vuex';
 
 @Component({
   computed: {
-    ...mapState(['userName', 'roomHash']),
+    ...mapState(['userName', 'roomHash', 'flipType']),
   },
 })
 export default class Chat extends Vue {
@@ -86,7 +89,7 @@ export default class Chat extends Vue {
 <style lang="scss">
 .chat-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   margin: auto;
 
   margin-bottom: 40px;
@@ -100,7 +103,7 @@ export default class Chat extends Vue {
   }
 
   .messages-container {
-    max-width: 400px;
+    max-width: 600px;
     height: 200px;
     background: #ffffff;
     margin: auto;
@@ -119,7 +122,7 @@ export default class Chat extends Vue {
       margin-bottom: 10px;
 
       .chat-user {
-        font-size: 10px;
+        font-size: 13px;
         text-align: left;
         width: 100%;
         padding-bottom: 4px;
